@@ -21,8 +21,8 @@ class ViewController: UIViewController {
         
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         
         //If key is save on the device, jump to next screen, usually happens after logged in
         if NSUserDefaults.standardUserDefaults().valueForKey(KEY_UID) != nil {
@@ -49,7 +49,7 @@ class ViewController: UIViewController {
                         print("Login failed. \(error)")
                     } else {
                         print("Logged in. \(user)")
-                        
+                    
                         let userData = ["provider": credential.provider]
                         DataService.ds.createFirebaseUser(user!.uid, user: userData)
                         
@@ -68,6 +68,7 @@ class ViewController: UIViewController {
             
             FIRAuth.auth()?.signInWithEmail(email, password: pwd, completion: { (user, error) in
                 
+                //If there is an error
                 if error != nil {
                     
                     print(error)
